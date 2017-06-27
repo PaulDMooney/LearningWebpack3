@@ -7,8 +7,9 @@ const config = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js?[chunkhash]'/*,
-        publicPath: 'build/'*/
+        filename: '[name].js?[chunkhash]',
+        chunkFilename: '[name].js?[chunkhash]'
+        // publicPath: 'build/'
     },
     module: {
         rules: [
