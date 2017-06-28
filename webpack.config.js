@@ -2,15 +2,18 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const sourceMapTool = process.env.NODE_ENV == 'production' ? 'source-map' : 'cheap-module-eval-source-map';
 
 const config = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js?[chunkhash]',
-        chunkFilename: '[name].js?[chunkhash]'
+        chunkFilename: '[name].js?[chunkhash]',
+        sourceMapFilename: 'maps/[file].map'
         // publicPath: 'build/'
     },
+    devtool: sourceMapTool,
     module: {
         rules: [
             {
