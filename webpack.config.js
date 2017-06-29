@@ -10,7 +10,7 @@ const config = {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js?[chunkhash]',
         chunkFilename: '[name].js?[chunkhash]',
-        sourceMapFilename: 'maps/[file].map'
+        sourceMapFilename: 'maps/[file].map?[chunkhash]'
         // publicPath: 'build/'
     },
     devtool: sourceMapTool,
@@ -41,7 +41,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('[name]-style.css?=[chunkhash]'),
+        new ExtractTextPlugin('[name]-style.css?[chunkhash]'),
         new HtmlWebpackPlugin(
             {
                 inject: false,
