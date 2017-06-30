@@ -7,5 +7,5 @@ webpackConfig.watch = true
 gulp.task("default", function() {
     return gulp.src('./src/index.js')
         .pipe(webpackStream(webpackConfig, webpack))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('build/'));
 });

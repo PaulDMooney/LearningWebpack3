@@ -7,7 +7,7 @@
     "build": "npm run clean && webpack",
     "prod": "npm run clean && NODE_ENV='production' webpack",
     "clean": "rimraf build",
-    "gulp": "rimraf dist && gulp"
+    "gulp": "gulp"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "babel-preset-env": "^1.5.2",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
+    "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
@@ -29,5 +30,9 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
     "webpack-stream": "^3.2.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^7.1.1",
+    "postcss-loader": "^2.0.6"
   }
 }

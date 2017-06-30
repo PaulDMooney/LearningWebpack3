@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebPackPlugin = require('copy-webpack-plugin');
@@ -8,7 +9,9 @@ const extractSass = new ExtractTextPlugin({
     disable: process.env.NODE_ENV === "development"
 });
 
-const sourceMapTool = process.env.NODE_ENV == 'production' ? 'source-map' : 'cheap-module-eval-source-map';
+const sourceMapTool = process.env.NODE_ENV == 'production' ? 'source-map' : 'inline-source-map';
+
+// const sourceMapTool = 'source-map';
 
 const config = {
     entry: './src/index.js',
@@ -27,19 +30,25 @@ const config = {
                 test: /\.js$/
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader',
-                    //publicPath: '/build'
-                })
-            },
-            {
                 test: /\.scss$/,
                 use: extractSass.extract({
                     use:[
-                        {loader: 'css-loader'},
-                        {loader: 'sass-loader'}
+                        
+                        {
+                            loader: 'css-loader', options:{sourceMap:true}
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: () => [
+                                    require('autoprefixer'),
+                                    require('cssnano')],
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader', options:{sourceMap:true}
+                        }
                     ],
                     fallback: 'style-loader'
                 })
@@ -57,7 +66,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('[name]-style.css?[contenthash]'),
+        //new ExtractTextPlugin('[name]-style.css?[contenthash]'),
         extractSass,
         new HtmlWebpackPlugin(
             {
