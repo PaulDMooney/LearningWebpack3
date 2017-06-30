@@ -1,6 +1,7 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
 
 const sourceMapTool = process.env.NODE_ENV == 'production' ? 'source-map' : 'cheap-module-eval-source-map';
 
@@ -41,13 +42,14 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('[name]-style.css?[chunkhash]'),
+        new ExtractTextPlugin('[name]-style.css?[contenthash]'),
         new HtmlWebpackPlugin(
             {
                 inject: false,
                 template: 'src/index.ejs'
             }
-        )
+        ),
+        new CopyWebPackPlugin([{from: 'assets', to: './'}], {ignore:['.*'] })
     ]
 }
 
