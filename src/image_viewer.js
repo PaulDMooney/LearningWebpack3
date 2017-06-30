@@ -1,6 +1,6 @@
 // import big from '../assets/big.jpg'
 import small from '../assets/small.jpg'
-import '../styles/image_viewer.css'
+import '../styles/image_viewer.scss'
 import sum from './sum'
 
 export default () => {

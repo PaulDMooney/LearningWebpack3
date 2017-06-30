@@ -1,4 +1,4 @@
-import '../styles/image_viewer.css'
+import '../styles/image_viewer.scss'
 
 const button = document.createElement('button');
 button.innerText = 'Click';

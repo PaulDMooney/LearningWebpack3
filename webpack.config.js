@@ -3,6 +3,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebPackPlugin = require('copy-webpack-plugin');
 
+const extractSass = new ExtractTextPlugin({
+    filename: "[name].css?[contenthash]",
+    disable: process.env.NODE_ENV === "development"
+});
+
 const sourceMapTool = process.env.NODE_ENV == 'production' ? 'source-map' : 'cheap-module-eval-source-map';
 
 const config = {
@@ -30,6 +35,16 @@ const config = {
                 })
             },
             {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    use:[
+                        {loader: 'css-loader'},
+                        {loader: 'sass-loader'}
+                    ],
+                    fallback: 'style-loader'
+                })
+            },
+            {
                 test:/\.(jpe?g|png|gif|svg)$/,
                 use: [
                     {
@@ -43,6 +58,7 @@ const config = {
     },
     plugins: [
         new ExtractTextPlugin('[name]-style.css?[contenthash]'),
+        extractSass,
         new HtmlWebpackPlugin(
             {
                 inject: false,

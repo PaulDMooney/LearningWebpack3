@@ -1,5 +1,6 @@
+$border: 10px;
 img {
-    border: 10px solid black;
+    border: $border solid black;
     border-radius: 3px;
     display: block;
 }
